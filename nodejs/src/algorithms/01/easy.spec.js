@@ -1,4 +1,4 @@
-const algorithm = require('./index')
+const algorithm = require('./easy')
 
 jest.mock('fs')
 

@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint -f stylish src",
@@ -24,5 +25,9 @@
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-standard": "4.0.1",
     "jest": "24.9.0"
+  },
+  "dependencies": {
+    "chalk": "3.0.0",
+    "inquirer": "7.0.0"
   }
 }

@@ -15,7 +15,6 @@ function createReadStream (filePath) {
   stream._read = () => {} // :: https://stackoverflow.com/a/22085851
 
   const text = mockFiles[filePath] || ''
-  console.log(text)
   stream.push(text)
   stream.push(null) // :: signal EOF
 
