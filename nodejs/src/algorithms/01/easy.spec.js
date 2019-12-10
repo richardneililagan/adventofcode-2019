@@ -2,7 +2,7 @@ const algorithm = require('./easy')
 
 jest.mock('fs')
 
-describe('Day 01 algorithm', () => {
+describe('Day 01 algorithm - Part 1', () => {
   const MOCK_FILES = {
     '/sample/12': '12',
     '/sample/14': '14',

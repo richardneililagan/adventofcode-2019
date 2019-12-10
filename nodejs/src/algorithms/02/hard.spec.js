@@ -2,7 +2,7 @@ const algorithm = require('./easy')
 
 jest.mock('fs')
 
-describe('Day 02 algorithm - Part 1', () => {
+describe('Day 02 algorithm - Part 2', () => {
   const MOCK_FILES = {
     '/sample/01': '1,0,0,0,99',
     '/sample/02': '2,3,0,3,99',
@@ -17,19 +17,6 @@ describe('Day 02 algorithm - Part 1', () => {
 
   it('should be a function', () => {
     expect(algorithm).toBeInstanceOf(Function)
-  })
-
-  it('should replace position 1 with 12', async () => {
-    const __parseLineStub = jest.spyOn(algorithm, '__parse')
-
-    await algorithm('/sample/01')
-
-    expect(__parseLineStub).toBeCalled()
-
-    const callInput = __parseLineStub.mock.calls[0][0]
-    expect(callInput[1]).toEqual(12)
-
-    __parseLineStub.mockRestore()
   })
 
   it('should replace position 2 with 2', async () => {
