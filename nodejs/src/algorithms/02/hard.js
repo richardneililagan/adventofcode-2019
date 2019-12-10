@@ -29,7 +29,7 @@ function __recurse (index, ops = []) {
   return __recurse(index + 4, ops)
 }
 
-function algorithm (filePath = '../../inputs/02/easy.input.txt') {
+function algorithm (filePath = '../../inputs/02/hard.input.txt') {
   const task = new Promise((resolve) => {
     const ops = []
 

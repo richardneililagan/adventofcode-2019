@@ -8,7 +8,8 @@ const algorithmQuestion = {
   message: 'Which algorithm do you want to run?',
   choices: [
     { value: '01', name: 'Day 01 - The Tyranny of the Rocket Equation' },
-    { value: '02', name: 'Day 02 - 1202 Program Alarm' }
+    { value: '02', name: 'Day 02 - 1202 Program Alarm' },
+    { value: '03', name: 'Day 03 - Crossed Wires' }
   ]
 }
 

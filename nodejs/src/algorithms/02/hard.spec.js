@@ -1,4 +1,4 @@
-const algorithm = require('./easy')
+const algorithm = require('./hard')
 
 jest.mock('fs')
 
@@ -17,18 +17,6 @@ describe('Day 02 algorithm - Part 2', () => {
 
   it('should be a function', () => {
     expect(algorithm).toBeInstanceOf(Function)
-  })
-
-  it('should replace position 2 with 2', async () => {
-    const __parseLineStub = jest.spyOn(algorithm, '__parse')
-    await algorithm('/sample/02')
-
-    expect(__parseLineStub).toBeCalled()
-
-    const callInput = __parseLineStub.mock.calls[0][0]
-    expect(callInput[2]).toEqual(2)
-
-    __parseLineStub.mockRestore()
   })
 
   describe('__parseLine/1', () => {
