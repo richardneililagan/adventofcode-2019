@@ -24,6 +24,8 @@ const inputsQuestions = {
   ]
 }
 
+let timer = process.hrtime()
+
 inquirer
   .prompt([
     algorithmQuestion,
@@ -35,10 +37,15 @@ inquirer
     const __algorithm = require(`./algorithms/${algorithm}/${input}`)
     const __inputPath = path.resolve(__dirname, 'inputs', algorithm, `${input}.input.txt`)
 
+    timer = process.hrtime()
     return __algorithm(__inputPath)
   })
   .then((result) => {
+    const [seconds, nanos] = process.hrtime(timer)
+    const elapsed = seconds + (nanos / 1000000000)
+
     console.log('')
     console.log(`The answer is ${chalk.bold.yellow(result)}.`)
+    console.log(chalk.green(`Algorithm ran for ${chalk.bold.cyan(elapsed)} seconds.`))
     console.log('')
   })
