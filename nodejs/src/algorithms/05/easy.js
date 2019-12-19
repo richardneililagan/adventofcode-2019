@@ -12,14 +12,6 @@ const __read = (v, index, modes, ops) => {
 const __write = (v, index, modes, ops, val) => {
   const mode = modes[v + 1] || 0
   const idx = (mode === 0) ? (ops[index + v] || 0) : index + v
-  console.log({
-    idx,
-    v,
-    val,
-    modes,
-    mode,
-    op: ops[v]
-  })
   ops[idx] = val
 }
 
@@ -99,7 +91,6 @@ function algorithm (filePath = '../../inputs/05/easy.input.txt') {
 
     lines.on('close', () => {
       const __recurse = () => {
-        console.log(metadata)
         const op = ops[metadata.index] || 0
         const opcode = op - (~~(op / 100) * 100)
 
