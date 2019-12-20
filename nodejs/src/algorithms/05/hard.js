@@ -1,5 +1,6 @@
 const fs = require('fs')
 const readline = require('readline')
+const chalk = require('chalk')
 
 // :: ---
 
@@ -17,7 +18,7 @@ const __write = (v, index, modes, ops, val) => {
 
 // :: ---
 
-function __op1 (ops, metadata) {
+function ADDN (ops, metadata) {
   const { index } = metadata
   const OPCODE = ops[index]
   const PARAMCODES = __paramcodes(OPCODE)
@@ -26,10 +27,10 @@ function __op1 (ops, metadata) {
   const y = __read(2, index, PARAMCODES, ops)
   __write(3, index, PARAMCODES, ops, x + y)
 
-  return 4
+  metadata.index += 4
 }
 
-function __op2 (ops, metadata) {
+function MULT (ops, metadata) {
   const { index } = metadata
   const OPCODE = ops[index]
   const PARAMCODES = __paramcodes(OPCODE)
@@ -38,10 +39,10 @@ function __op2 (ops, metadata) {
   const y = __read(2, index, PARAMCODES, ops)
   __write(3, index, PARAMCODES, ops, x * y)
 
-  return 4
+  metadata.index += 4
 }
 
-function __op3 (ops, metadata) {
+function INPT (ops, metadata) {
   const { index } = metadata
   const OPCODE = ops[index]
   const PARAMCODES = __paramcodes(OPCODE)
@@ -49,10 +50,10 @@ function __op3 (ops, metadata) {
   const { input } = metadata
   __write(1, index, PARAMCODES, ops, input)
 
-  return 2
+  metadata.index += 2
 }
 
-function __op4 (ops, metadata) {
+function OUTT (ops, metadata) {
   const { index } = metadata
   const OPCODE = ops[index]
   const PARAMCODES = __paramcodes(OPCODE)
@@ -60,17 +61,69 @@ function __op4 (ops, metadata) {
   const x = __read(1, index, PARAMCODES, ops)
   metadata.output = x
 
-  return 2
+  metadata.index += 2
 }
 
-const OPERATIONS = [__op1, __op2, __op3, __op4]
+function JMPT (ops, metadata) {
+  const { index } = metadata
+  const OPCODE = ops[index]
+  const PARAMCODES = __paramcodes(OPCODE)
+
+  const determinant = __read(1, index, PARAMCODES, ops)
+  const target = __read(2, index, PARAMCODES, ops)
+
+  if (determinant !== 0) metadata.index = target
+  else metadata.index += 3
+}
+
+function JMPF (ops, metadata) {
+  const { index } = metadata
+  const OPCODE = ops[index]
+  const PARAMCODES = __paramcodes(OPCODE)
+
+  const determinant = __read(1, index, PARAMCODES, ops)
+  const target = __read(2, index, PARAMCODES, ops)
+
+  if (determinant === 0) metadata.index = target
+  else metadata.index += 3
+}
+
+function ISLT (ops, metadata) {
+  const { index } = metadata
+  const OPCODE = ops[index]
+  const PARAMCODES = __paramcodes(OPCODE)
+
+  const x = __read(1, index, PARAMCODES, ops)
+  const y = __read(2, index, PARAMCODES, ops)
+
+  const result = (x < y) ? 1 : 0
+  __write(3, index, PARAMCODES, ops, result)
+
+  metadata.index += 4
+}
+
+function ISEQ (ops, metadata) {
+  const { index } = metadata
+  const OPCODE = ops[index]
+  const PARAMCODES = __paramcodes(OPCODE)
+
+  const x = __read(1, index, PARAMCODES, ops)
+  const y = __read(2, index, PARAMCODES, ops)
+
+  const result = (x === y) ? 1 : 0
+  __write(3, index, PARAMCODES, ops, result)
+
+  metadata.index += 4
+}
+
+const OPERATIONS = [ADDN, MULT, INPT, OUTT, JMPT, JMPF, ISLT, ISEQ]
 
 // :: ---
 
-function algorithm (filePath = '../../inputs/05/easy.input.txt') {
+function algorithm (filePath = '../../inputs/05/easy.input.txt', input = 5) {
   const ops = []
   const metadata = {
-    input: 1,
+    input,
     output: null,
     index: 0
   }
@@ -96,8 +149,7 @@ function algorithm (filePath = '../../inputs/05/easy.input.txt') {
         // :: ---
 
         const operation = OPERATIONS[opcode - 1]
-        const delta = operation(ops, metadata)
-        metadata.index += delta
+        operation(ops, metadata)
 
         __recurse()
       }
