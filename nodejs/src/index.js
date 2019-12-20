@@ -11,7 +11,8 @@ const algorithmQuestion = {
     { value: '02', name: 'Day 02 - 1202 Program Alarm' },
     { value: '03', name: 'Day 03 - Crossed Wires' },
     { value: '04', name: 'Day 04 - Secure Container' },
-    { value: '05', name: 'Day 05 - Sunny with a Chance of Asteroids' }
+    { value: '05', name: 'Day 05 - Sunny with a Chance of Asteroids' },
+    { value: '06', name: 'Day 06 - Universal Orbit Map' }
   ]
 }
 
