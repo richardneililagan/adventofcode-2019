@@ -63,7 +63,7 @@ function algorithm (filePath = '../../inputs/06/easy.input.txt') {
         }
       })
 
-      reject('An intersection was not found.')
+      reject(new Error('An intersection was not found.'))
     })
   })
 
